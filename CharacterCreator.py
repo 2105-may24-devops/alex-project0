@@ -71,19 +71,19 @@ has been chosen!'''.format(self.name,self.strg,self.agil,self.clvr, self.bkmk))
         #name assignment
         name = input('enter your name: ')
         if name == '0':
-            return
+            return name
         print('your name is: '+ name)
         name_correct = input('is that correct? (y/n) ')
         if name_correct == '0':
-            return
+            return name_correct
         while name_correct != 'y':
             name = input('Choose a different name: ')
             if name == '0':
-                return
+                return name
             print('your name is:'+ name)
             name_correct = input('is that correct? (y/n) ')
             if name_correct == '0':
-                return
+                return name_correct
         self.name = name
         print('The character '+ name +' has been created.')
 
@@ -102,7 +102,7 @@ agility: {1}
 cleverness: {2}'''.format(skills[0],skills[1],skills[2]))
         skills_correct = input('is that correct? (y/n) ')
         if skills_correct == '0':
-            return
+            return skills_correct
         while skills_correct != 'y':
             skills=[]
             print('Please reallocate your skills.')
@@ -118,7 +118,7 @@ agility: {1}
 cleverness: {2}'''.format(skills[0],skills[1],skills[2]))
             skills_correct = input('is that correct? (y/n) ')
             if skills_correct == '0':
-                return
+                return skills_correct
         self.strg = skills[0]
         self.agil = skills[1]
         self.clvr = skills[2]
@@ -145,19 +145,21 @@ cleverness: {3}
             pc = pc[pc.find('\\')+1:pc.find('.txt')]
             print(str(i)+'. '+pc)
             characters.append(pc)
+        print(str(i+1)+'. Exit')
         if characters:
             adventurer = input('Choose one of the above characters. ')
-            if adventurer=='0':
-                return adventurer
+            if adventurer=='0' or adventurer==str(len(adventurer)+1):
+                return '0'
             chosen_One = characters[int(adventurer)-1]
             print('Your chosen character is ' + chosen_One)
             character_correct = input('is that correct? (y/n) ')
             while character_correct != 'y':
                 for x in range(i):
                     print(str(x+1)+'. '+characters[x])
+                print(str(i+1)+'. Exit')
                 adventurer = input('Choose one of the above characters. ')
-                if adventurer=='0':
-                    return adventurer
+                if adventurer=='0' or adventurer==str(len(adventurer)+1):
+                    return '0'
                 chosen_One = characters[int(adventurer)-1]
                 print('Your chosen character is ' + chosen_One)
                 character_correct = input('is that correct? (y/n) ')
@@ -180,6 +182,7 @@ cleverness: {3}
             print(self.__str__())
         else:
             print("There aren't any characters available, try making one first.")
+            return '0'
     #upload character instructions    
     def upload_Character(self):
         print('''To upload a character make sure the character is in a .txt file in /AGcharacters and should look something like this: 
