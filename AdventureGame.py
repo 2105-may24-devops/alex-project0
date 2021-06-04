@@ -1,9 +1,9 @@
 #Game play class
 from pathlib import Path
 
-def playGame(dm,pc):
+def play_Game(dm,pc):
     print("GOOD GAME!")
-def selectModule(player):
+def select_Module(player):
     p = Path.cwd() / "AGmodules"
     Path.mkdir(p, parents=True, exist_ok=True)
     dir_path = Path(p).relative_to(Path.cwd())
@@ -40,7 +40,7 @@ def selectModule(player):
             if mission == '0' or mission==str(len(modules)+1):
                     break
             mod_path = module_files[modules.index(quest)]
-            playGame(mod_path, player)
+            play_Game(mod_path, player)
         else:
             print('Error: No modules found')
             break

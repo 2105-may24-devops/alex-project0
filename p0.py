@@ -22,7 +22,7 @@ if(len(sys.argv)==1):
         elif choice == '2':
             char = avatar.choose_Character()
             if char!='0':
-                ag.selectModule(avatar)
+                ag.select_Module(avatar)
         elif choice == '3':
             avatar.upload_Character()
         elif choice == '4':
