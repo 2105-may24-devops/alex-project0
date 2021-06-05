@@ -51,3 +51,32 @@ def select_Module(player):
         else:
             print('Error: No modules found')
             break
+def upload_Module():
+    p = Path.cwd() / "AGmodules"
+    Path.mkdir(p, parents=True, exist_ok=True)
+    dir_path = Path(p).relative_to(Path.cwd())
+    modules = []
+    modules = []
+    module_files=[]
+    i=0
+    for p in dir_path.iterdir():
+        if i==0:
+            print("Current Game Modules: ")
+        i+=1
+        module_files.append(p)
+        pc = str(p)
+        if pc.count('\\')!=0:
+            pc = pc[pc.find('\\')+1:pc.find('.txt')]
+        elif pc.count('/')!=0:
+            pc = pc[pc.find('/')+1:pc.find('.txt')]
+        else:
+            print('Something is wrong with this module path: ')
+            print(pc)
+            return '0'
+        print(str(i)+'. '+pc)
+        modules.append(pc)
+    print('''To upload a module either find one that is already made and add it to the /AGModules folder
+or you can write your own into a .txt file in /AGcharacters that follows these syntax rules: 
+
+''')
+    input("Input anything to return to the menu. ")

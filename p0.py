@@ -26,7 +26,7 @@ if(len(sys.argv)==1):
         elif choice == '3':
             avatar.upload_Character()
         elif choice == '4':
-            print('Upload a new game module to play')
+            ag.upload_Module()
         elif choice == '5':
             print('Thanks for Playing!')
             break
