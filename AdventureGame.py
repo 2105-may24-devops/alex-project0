@@ -40,6 +40,9 @@ def play_Game(dm,pc):
     if bookmark.count(key)!=0:
         page = int(bookmark[bookmark.find(key)+1])
         game_Save = True
+        if page == 0:
+            print("Save not found. Starting new game.")
+            game_Save = False
         while game_Save:
             bookmark_correct = input("Continue game? (y/n)")
             if bookmark_correct == 'y':
@@ -60,13 +63,13 @@ def play_Game(dm,pc):
         if scene.count('=') != 0:
             print(scene[:scene.find('=')])
             print("THE END")
-            bookmark[bookmark.find(key)+1] = 0
+            bookmark=bookmark[:bookmark.find(key)]+key+'0'+bookmark[bookmark.find(key)+2:]
             pc.bkmk = bookmark
             break
         elif scene.count('~') != 0:
             print(scene[:scene.find('~')])
             print("GAME OVER")
-            bookmark[bookmark.find(key)+1] = 0
+            bookmark=bookmark[:bookmark.find(key)]+key+'0'+bookmark[bookmark.find(key)+2:]
             pc.bkmk = bookmark
             #delete characters?
             break
@@ -74,79 +77,108 @@ def play_Game(dm,pc):
             print(scene)
             page+=1
         #showing your options
-        plan = []
-        for i in range(1, len(encounter)):
-            plan.append(encounter[i])
-            o = encounter[i]
-            if o[0] =='!':
-                option = o[1:o.find('^')]
-            else:
-                if o[3].isdigit():
-                    option = o[3:o.find('^')]
+        choice_unresolved = True
+        while choice_unresolved:
+            plan = []
+            for i in range(1, len(encounter)):
+                plan.append(encounter[i])
+                o = encounter[i]
+                if o[0] =='!':
+                    option = o[1:o.find('^')]
                 else:
-                    option = o[2:o.find('^')]
-            print(str(i)+'. '+option)
-        #getting input
-        choice = input("What do you do? ")
+                    if o[2].isdigit():
+                        option = o[3:o.find('^')]
+                    else:
+                        option = o[2:o.find('^')]
+                print(str(i)+'. '+option)
+            print(str(i+1)+'. Character stats')
+            #getting input
+            choice = input("What do you do? ")
+            if choice == '0':
+                bookmark = bookmark[:bookmark.find(key)]+key+str(page)+bookmark[bookmark.find(key)+2:]
+                pc.bkmk = bookmark
+                break
+            elif choice == str(i+1):
+                print(pc.__str__())
+            else:
+                choice_unresolved = False
         if choice == '0':
-            bookmark[bookmark.find(key)+1] = page
-            pc.bkmk = bookmark
-            break
+                break
         #resolving skills
-        p = plan[int(choice)]
+        x=0
+        p = plan[int(choice)-1]
         #strength check
         x = p.find('^')
-        r = random.randint(1, 21)
-        if p[2].isdigit() and p[3].isdigit():
-            c = (p[2]*10)+p[3]
-        elif p[2].isdigit():
-            c = p[2]
+        r = random.randint(1, 20)
+        c = 0
+        if p[1].isdigit() and p[2].isdigit():
+            c = (int(p[1])*10)+int(p[2])
+        elif p[1].isdigit():
+            c = int(p[1])
         if p[0]=='*':
-            if p[1] <= (r+pc.strg):
+            print("Need to beat a "+str(c)+", you rolled a "+str((r+pc.strg))+".")
+            if c <= (r+pc.strg):
                 next = p[x+1]
                 if p.count('+') != 0:
                     pc.strg+=int(p[x+3])
+                    print("Nice! you got a +"+p[x+3]+" bonus to your strength stat.")
             else:
-               next = p[p[x+1:].find('^')+1]
-               if p.count('-') != 0:
+                n = p[x+1:]
+                next = n[n.find('^')+1]
+                if p.count('-') != 0:
                     pc.strg-=int(p[p[x+1:].find('^')+3])
+                    print("Bad luck! you got a -"+p[x+3]+" penalty to your strength stat.")
         #agility check
         elif p[0]=='@':
-            if p[1] <= (r+pc.agil):
+            print("Need to beat a "+str(c)+", you rolled a "+str((r+pc.agil))+".")
+            if c <= (r+pc.agil):
                 next = p[x+1]
                 if p.count('+') != 0:
                     pc.agil+=int(p[x+3])
+                    print("Nice! you got a +"+p[x+3]+" bonus to your agility stat.")
             else:
-               next = p[p[x+1:].find('^')+1]
-               if p.count('-') != 0:
+                n = p[x+1:]
+                next = n[n.find('^')+1]
+                if p.count('-') != 0:
                     pc.agil-=int(p[p[x+1:].find('^')+3])
+                    print("Bad luck! you got a -"+p[x+3]+" penalty to your agility stat.")
         #cleverness check
         elif p[0]=='$':
-            if p[1] <= (r+pc.clvr):
+            print("Need to beat a "+str(c)+", you rolled a "+str((r+pc.clvr))+".")
+            if c <= (r+pc.clvr):
                 next = p[x+1]
                 if p.count('+') != 0:
                     pc.clvr+=int(p[x+3])
+                    print("Nice! you got a +"+p[x+3]+" bonus to your cleverness stat.")
             else:
-               next = p[p[x+1:].find('^')+1]
-               if p.count('-') != 0:
+                n = p[x+1:]
+                next = n[n.find('^')+1]
+                if p.count('-') != 0:
                     pc.clvr-=int(p[p[x+1:].find('^')+3])
+                    print("Bad luck! you got a -"+p[x+3]+" penalty to your cleverness stat.")
         #ordinary decision
         else:
             next = p[x+1]
             if p.count('+') != 0:
                     if p[x+3]=='*':
                         pc.strg+=int(p[p.find('*')+1])
+                        print("Nice! you got a +"+p[p.find('$')+1]+" bonus to your strength stat.")
                     elif p[x+3]=='@':
                         pc.agil+=int(p[p.find('@')+1])
+                        print("Nice! you got a +"+p[p.find('$')+1]+" bonus to your agility stat.")
                     elif p[x+3]=='$':
                         pc.clvr+=int(p[p.find('$')+1])
+                        print("Nice! you got a +"+p[p.find('$')+1]+" bonus to your cleverness stat.")
             if p.count('-') != 0:
                     if p[x+3]=='*':
                         pc.strg-=int(p[p.find('*')+1])
+                        print("Bad luck! you got a -"+p[p.find('$')+1]+" penalty to your strength stat.")
                     elif p[x+3]=='@':
                         pc.agil-=int(p[p.find('@')+1])
+                        print("Bad luck! you got a -"+p[p.find('$')+1]+" penalty to your agility stat.")
                     elif p[x+3]=='$':
                         pc.clvr-=int(p[p.find('$')+1])
+                        print("Bad luck! you got a -"+p[p.find('$')+1]+" penalty to your cleverness stat.")
         #redirection
         page = int(next)
 def select_Module(player):
@@ -159,6 +191,8 @@ def select_Module(player):
         module_files=[]
         i=0
         for p in dir_path.iterdir():
+            if i==0:
+                print("Game Module Select: ")
             i+=1
             module_files.append(p)
             pc = str(p)

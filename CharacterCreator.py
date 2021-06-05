@@ -58,11 +58,10 @@ class Avatar:
 
     #print method
     def __str__(self):
-        return ('''The character {0} with:
+        return ('''The hero {0} has:
 strength: {1}
 agility: {2}
-cleverness: {3}
-has been chosen!'''.format(self.name,self.strg,self.agil,self.clvr))
+cleverness: {3}'''.format(self.name,self.strg,self.agil,self.clvr))
 
     #Character creator
     def new_Character(self):
@@ -138,6 +137,8 @@ cleverness: {3}
         character_files=[]
         i=0
         for p in path.iterdir():
+            if i==0:
+                print("Character Select: ")
             i+=1
             character_files.append(p)
             pc = str(p)

@@ -2,30 +2,30 @@
 #this is the test module for adventure game
 &0Our story begins at this point.
 &Choose how you wish to proceed!
-!option 1 proceed to next option ^2
-!option 2 run away! ^1
-*14 option strength ^4/^5
-@8 option agility ^3/^2-1
-$17 option cleverness ^6+1/^1
+!Option 1 proceed to next option ^2
+!Option 2 run away! ^1
+*14Option strength ^4/^5
+@8Option agility ^3/^2-1
+$17Option cleverness ^6+1/^1
 
 &1Dead end, you died. ~
 
 &2You end up in the next location, make your next choice
-!another option ^3+$1
-*6 just a little goblin ^7/^1
-$12 jedi mind trick ^4+1/^3
+!Another option ^3+$1
+*6Just a little goblin ^7/^1
+$12Jedi mind trick ^4+1/^3
 
 &3You hear roaring in the distance, do you have the resolve to face it?
-@9 bound away free from consequence ^4/^6
-$16 building courage must come from the heart! ^6/^0
+@9Bound away free from consequence ^4/^6
+$16Building courage must come from the heart! ^6/^0
 
 &4You escaped but at what cost? =
 
 &5Fell in a pit and rocks fall, everybody dies ~
 
 &6Final choice. its up to you.
-!go home. ^7
-*27 fight the dragon ^7/^1
-@22 jump the massive crevice and escape with the gold ^4/^5
+!Go home. ^7
+*27Fight the dragon ^7/^1
+@22Jump the massive crevice and escape with the gold ^4/^5
 
 &7Journey's end. Epilogue. =
