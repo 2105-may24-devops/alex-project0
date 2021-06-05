@@ -1,5 +1,6 @@
 #Game play class
 from pathlib import Path
+import random
 
 def dungeon_Master(dm):
     if Path(dm).exists():
@@ -73,7 +74,81 @@ def play_Game(dm,pc):
             print(scene)
             page+=1
         #showing your options
+        plan = []
+        for i in range(1, len(encounter)):
+            plan.append(encounter[i])
+            o = encounter[i]
+            if o[0] =='!':
+                option = o[1:o.find('^')]
+            else:
+                if o[3].isdigit():
+                    option = o[3:o.find('^')]
+                else:
+                    option = o[2:o.find('^')]
+            print(str(i)+'. '+option)
         #getting input
+        choice = input("What do you do? ")
+        if choice == '0':
+            bookmark[bookmark.find(key)+1] = page
+            pc.bkmk = bookmark
+            break
+        #resolving skills
+        p = plan[int(choice)]
+        #strength check
+        x = p.find('^')
+        r = random.randint(1, 21)
+        if p[2].isdigit() and p[3].isdigit():
+            c = (p[2]*10)+p[3]
+        elif p[2].isdigit():
+            c = p[2]
+        if p[0]=='*':
+            if p[1] <= (r+pc.strg):
+                next = p[x+1]
+                if p.count('+') != 0:
+                    pc.strg+=int(p[x+3])
+            else:
+               next = p[p[x+1:].find('^')+1]
+               if p.count('-') != 0:
+                    pc.strg-=int(p[p[x+1:].find('^')+3])
+        #agility check
+        elif p[0]=='@':
+            if p[1] <= (r+pc.agil):
+                next = p[x+1]
+                if p.count('+') != 0:
+                    pc.agil+=int(p[x+3])
+            else:
+               next = p[p[x+1:].find('^')+1]
+               if p.count('-') != 0:
+                    pc.agil-=int(p[p[x+1:].find('^')+3])
+        #cleverness check
+        elif p[0]=='$':
+            if p[1] <= (r+pc.clvr):
+                next = p[x+1]
+                if p.count('+') != 0:
+                    pc.clvr+=int(p[x+3])
+            else:
+               next = p[p[x+1:].find('^')+1]
+               if p.count('-') != 0:
+                    pc.clvr-=int(p[p[x+1:].find('^')+3])
+        #ordinary decision
+        else:
+            next = p[x+1]
+            if p.count('+') != 0:
+                    if p[x+3]=='*':
+                        pc.strg+=int(p[p.find('*')+1])
+                    elif p[x+3]=='@':
+                        pc.agil+=int(p[p.find('@')+1])
+                    elif p[x+3]=='$':
+                        pc.clvr+=int(p[p.find('$')+1])
+            if p.count('-') != 0:
+                    if p[x+3]=='*':
+                        pc.strg-=int(p[p.find('*')+1])
+                    elif p[x+3]=='@':
+                        pc.agil-=int(p[p.find('@')+1])
+                    elif p[x+3]=='$':
+                        pc.clvr-=int(p[p.find('$')+1])
+        #redirection
+        page = int(next)
 def select_Module(player):
     p = Path.cwd() / "AGmodules"
     Path.mkdir(p, parents=True, exist_ok=True)
