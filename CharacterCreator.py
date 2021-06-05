@@ -142,7 +142,14 @@ cleverness: {3}
             i+=1
             character_files.append(p)
             pc = str(p)
-            pc = pc[pc.find('\\')+1:pc.find('.txt')]
+            if pc.count('\\')!=0:
+                pc = pc[pc.find('\\')+1:pc.find('.txt')]
+            elif pc.count('/')!=0:
+                pc = pc[pc.find('/')+1:pc.find('.txt')]
+            else:
+                print('Something is wrong with this character path: ')
+                print(pc)
+                return '0'
             print(str(i)+'. '+pc)
             characters.append(pc)
         print(str(i+1)+'. Exit')
@@ -185,7 +192,8 @@ cleverness: {3}
             return '0'
     #upload character instructions    
     def upload_Character(self):
-        print('''To upload a character make sure the character is in a .txt file in /AGcharacters and should look something like this: 
+        print('''To upload a character either call p0.py with the correct arguments, name, strength value, agility value, and cleverness value, the values should add to 12
+or you can write the character into a .txt file in /AGcharacters that should look something like this: 
 
 exampleName
 5

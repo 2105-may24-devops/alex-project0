@@ -12,7 +12,7 @@ if(len(sys.argv)==1):
     1. New game
     2. Choose character
     3. Upload character instructions
-    4. Upload module
+    4. Upload module instructions
     5. Exit
 ''')
         if choice == '0':

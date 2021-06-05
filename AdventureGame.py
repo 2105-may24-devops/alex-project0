@@ -16,7 +16,14 @@ def select_Module(player):
             i+=1
             module_files.append(p)
             pc = str(p)
-            pc = pc[pc.find('\\')+1:pc.find('.txt')]
+            if pc.count('\\')!=0:
+                pc = pc[pc.find('\\')+1:pc.find('.txt')]
+            elif pc.count('/')!=0:
+                pc = pc[pc.find('/')+1:pc.find('.txt')]
+            else:
+                print('Something is wrong with this module path: ')
+                print(pc)
+                return '0'
             print(str(i)+'. '+pc)
             modules.append(pc)
         print(str(i+1)+'. Exit')
