@@ -206,3 +206,20 @@ Note:
     The last digit should always be zero when creating a new character.
 Once that is done you should be able to access your character from the "Choose character" option in the menu''')
         input("Input anything to return to the menu. ")
+    def update_Character(self):
+        if self.file == '':
+            file_name = self.name + '.txt'
+            file_parent = self.fileParent
+            file_path = file_parent / file_name
+            Path.touch(file_path,exist_ok=True)
+            self.file = file_path
+            p = Path(file_path)
+        else:
+            p = Path(self.file)
+        lines = '''{0}
+{1}
+{2}
+{3}
+{4}
+'''.format(self.name,self.strg,self.agil,self.clvr,self.bkmk)
+        p.write_text(lines)
