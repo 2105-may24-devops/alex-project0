@@ -35,7 +35,45 @@ def play_Game(dm,pc):
     dm, key = dungeon_Master(dm)
     if key == '0':
         return
-    print("GOOD GAME!")
+    bookmark = str(pc.bkmk)
+    if bookmark.count(key)!=0:
+        page = int(bookmark[bookmark.find(key)+1])
+        game_Save = True
+        while game_Save:
+            bookmark_correct = input("Continue game? (y/n)")
+            if bookmark_correct == 'y':
+               break 
+            else:
+                bookmark_correct = input("Are you sure you wish to start from the beginning? (y/n)")
+                if bookmark_correct == 'y':
+                    page = 0
+                    break
+    else:
+        page = 0
+        print("Save not found. Starting new game.")
+    campaign=True
+    while campaign:
+        encounter = dm[page]
+        #setting the scene
+        scene = encounter[0]
+        if scene.count('=') != 0:
+            print(scene[:scene.find('=')])
+            print("THE END")
+            bookmark[bookmark.find(key)+1] = 0
+            pc.bkmk = bookmark
+            break
+        elif scene.count('~') != 0:
+            print(scene[:scene.find('~')])
+            print("GAME OVER")
+            bookmark[bookmark.find(key)+1] = 0
+            pc.bkmk = bookmark
+            #delete characters?
+            break
+        else:   
+            print(scene)
+            page+=1
+        #showing your options
+        #getting input
 def select_Module(player):
     p = Path.cwd() / "AGmodules"
     Path.mkdir(p, parents=True, exist_ok=True)

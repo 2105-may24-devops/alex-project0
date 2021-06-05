@@ -34,7 +34,7 @@ class Avatar:
         self.strg = 0
         self.agil = 0
         self.clvr = 0
-        self.bkmk = 0
+        self.bkmk = ''
         p = Path.cwd() / "AGcharacters"
         Path.mkdir(p, parents=True, exist_ok=True)
         dir_path = Path(p).relative_to(Path.cwd())
@@ -62,8 +62,7 @@ class Avatar:
 strength: {1}
 agility: {2}
 cleverness: {3}
-last seen at {4}
-has been chosen!'''.format(self.name,self.strg,self.agil,self.clvr, self.bkmk))
+has been chosen!'''.format(self.name,self.strg,self.agil,self.clvr))
 
     #Character creator
     def new_Character(self):
@@ -155,7 +154,7 @@ cleverness: {3}
         print(str(i+1)+'. Exit')
         if characters:
             adventurer = input('Choose one of the above characters. ')
-            if adventurer=='0' or adventurer==str(len(adventurer)+1):
+            if adventurer=='0' or adventurer==str(len(characters)+1):
                 return '0'
             chosen_One = characters[int(adventurer)-1]
             print('Your chosen character is ' + chosen_One)
@@ -165,7 +164,7 @@ cleverness: {3}
                     print(str(x+1)+'. '+characters[x])
                 print(str(i+1)+'. Exit')
                 adventurer = input('Choose one of the above characters. ')
-                if adventurer=='0' or adventurer==str(len(adventurer)+1):
+                if adventurer=='0' or adventurer==str(len(characters)+1):
                     return '0'
                 chosen_One = characters[int(adventurer)-1]
                 print('Your chosen character is ' + chosen_One)
@@ -185,7 +184,7 @@ cleverness: {3}
             self.strg = int(character_stats[1])
             self.agil = int(character_stats[2])
             self.clvr = int(character_stats[3])
-            self.bkmk = int(character_stats[4])
+            self.bkmk = str(character_stats[4])
             print(self.__str__())
         else:
             print("There aren't any characters available, try making one first.")
