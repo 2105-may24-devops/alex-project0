@@ -1,7 +1,40 @@
 #Game play class
 from pathlib import Path
 
+def dungeon_Master(dm):
+    if Path(dm).exists():
+        dungeon_manual = dm.read_text()
+        bestiary = dungeon_manual.split('\n')
+        dungeon_module = {}
+        encounter = []
+        i = 0
+        for m in bestiary:
+            #skip empty lines
+            if len(m)==0:
+                continue
+            #module key for character placement bookmarking
+            elif m[0]=='|':
+                key = m[1]
+            else:
+                #story elements
+                if m[0]=='&':
+                    if m[1].isdigit():
+                        i = int(m[1])
+                        encounter = [m[2:]]
+                    else:
+                        encounter[0] = dungeon_module[i][0]+'\n'+m[1:]
+                #choices
+                elif m[0]=='!' or m[0]=='*' or m[0]=='@' or m[0]=='$':
+                    encounter.append(m[0:])
+                dungeon_module[i] = encounter
+        return dungeon_module, key
+    else:
+        print("Error: Game Module could not be found.")
+        return '0', '0'
 def play_Game(dm,pc):
+    dm, key = dungeon_Master(dm)
+    if key == '0':
+        return
     print("GOOD GAME!")
 def select_Module(player):
     p = Path.cwd() / "AGmodules"
