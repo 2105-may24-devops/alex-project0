@@ -197,6 +197,7 @@ def play_Game(dm,pc):
                         print("Bad luck! you got a -"+p[p.find('$')+1]+" penalty to your cleverness stat.")
         #redirection
         page = int(next)
+        pc.update_character()
     return True
 def select_Module(player):
     p = Path.cwd() / "AGmodules"
