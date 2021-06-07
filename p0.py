@@ -11,9 +11,10 @@ if(len(sys.argv)==1):
         choice = input('''Select one of the options:
     1. New game
     2. Choose character
-    3. Upload character instructions
-    4. Upload module
-    5. Exit
+    3. Resurrect Character
+    4. Upload character instructions
+    5. Upload module instructions
+    6. Exit
 ''')
         if choice == '0':
             break
@@ -23,11 +24,14 @@ if(len(sys.argv)==1):
             char = avatar.choose_Character()
             if char!='0':
                 ag.select_Module(avatar)
+                avatar.update_Character()
         elif choice == '3':
-            avatar.upload_Character()
+            avatar.resurrect_Character()
         elif choice == '4':
-            print('Upload a new game module to play')
+            avatar.upload_Character()
         elif choice == '5':
+            ag.upload_Module()
+        elif choice == '6':
             print('Thanks for Playing!')
             break
         else:
