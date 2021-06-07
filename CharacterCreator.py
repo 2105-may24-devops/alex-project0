@@ -156,8 +156,8 @@ cleverness: {3}
                 return '0'
             print(str(i)+'. '+pc)
             characters.append(pc)
-        print(str(i+1)+'. Exit')
         if characters:
+            print(str(i+1)+'. Exit')
             adventurer = input('Choose one of the above characters. ')
             if adventurer=='0' or adventurer==str(len(characters)+1):
                 return '0'
