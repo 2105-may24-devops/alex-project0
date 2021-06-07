@@ -8,7 +8,8 @@ avatar =  cc.Avatar()
 if(len(sys.argv)==1):
     exit_game=True
     while exit_game:
-        choice = input('''Select one of the options:
+        choice = input('''Welcome to the AdventureGame!
+Select one of the options:
     1. New game
     2. Choose character
     3. Resurrect Character

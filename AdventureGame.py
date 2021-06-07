@@ -91,7 +91,6 @@ def play_Game(dm,pc):
             return False
         else:   
             print(scene)
-            page+=1
         #showing your options
         choice_unresolved = True
         while choice_unresolved:
@@ -277,12 +276,23 @@ def upload_Module():
 or you can write your own into a .txt file in /AGcharacters that follows these syntax rules: 
 |* Signifies a key which should always be the very first line of any module and should be a '|' followed by a character unique from other modules. i.e. |@
 # comment that is ignored by the game
-&Story element that should set the scene and lead to a decision needing to be made
+&#Story element that should set the scene and lead to a decision needing to be made
+    the # is the index for that particular encounter/decision
 !basic decision element
-*#strength decision
-@#agility decision
-$#cleverness decision
-    for all the skill decisions the # represents a positive number that player needs to roll equal to or greater than to beat.
-    Also keep in mind that 
+*#strength decision element (s)
+@#agility decision element (a)
+$#cleverness decision element (c)
+    for all the skill decisions put the (Letter) of the skill required for the decision at the end but before the index element
+    the # represents a positive number that player needs to roll equal to or greater than to beat.
+    Also keep in mind that for skill rolls it is the challenge value <= a 1-20 roll + skill bonus
+^# index element where # is the index of the following decision and should be on the end of each decision element
+    can also be ^#/^# for skill decision elements for a sucess/fail of the skill roll
+Some decisions can increase or decrease skill points and look like this for various instances:
+    basic decision thats increases cleverness ^#$+# can change $ to @ or * for agility and strength respectively
+    skill decision increase ^#+#/^#
+    skill decision decrease ^#/^#-#
+    for skill decisions it go after either ^# depending on if you want it to affect a successful or failed roll
+~ put at the end of a story element, signifies end game (negative)
+= put at the end of a story element, signifies end game (positive)
 ''')
     input("Input anything to return to the menu. ")
