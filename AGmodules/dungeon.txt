@@ -1,2 +1,42 @@
 |$
 #This is the Dungeon module!
+&0You wake up in a dingy dimly lit cell, arms shackled above your head.
+&You have no recollection of how exaclty you got here, but your head aches and your mind is foggy.
+&Looking around you notice your only company is a pack of rats skittering in a corner.
+!Call out for help ^2
+!Wait for someone to rescue you. ^1
+*14Try and pull the rusty chain links apart (s) ^4/^5
+@8Try and wiggle you arms through the shackles (a) ^3/^2-1
+$12Look around more closely for something to help you escape. (c) ^6+1/^1
+
+&1No luck, you were promptly executed. ~
+
+&2You alert a nearby goblin guard who enters your cell to see what is the matter.
+!Ask what is going on. ^3+$1
+*6Try and take the goblin by surprise.(s) ^8/^1
+$17Attempt a Jedi mind trick (c) ^4+1/^3
+
+&3You suddenly hear roaring in the distance, do you have the resolve to face it?
+@9Bound away free from consequence (a) ^4/^6
+$16Building courage must come from the heart! (c) ^6/^0
+
+&4You escaped but at what cost? =
+
+&5Fell in a pit and rocks fall, everybody dies ~
+
+&6You encounter a large treasure room guarded by a dragon,
+&the closest exit is across a massive chasm.
+!Try your luck elsewhere in the dungeon ^7
+*27Fight the dragon. (s) ^7/^1
+@22Jump the massive crevice and escape with the gold. (a) ^4/^5
+
+&7You escape and head home.
+&An adventure in your heart and
+&a story on your mind.
+&Journey's end. Epilogue. =
+
+&8As the goblin gets close you jump up and swing your legs aroung the goblins head,
+&putting it into a chokehold. After rendering the goblin out cold you take the keys
+&and escape.
+!try and explore the area for something to help you escape ^3
+!try and sneak out before the guards show up ^4
