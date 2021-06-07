@@ -90,7 +90,7 @@ cleverness: {3}'''.format(self.name,self.strg,self.agil,self.clvr))
         print('The character '+ name +' has been created.')
 
         #skill point allocation
-        print('Next we need to allocate your skill points across the 3 skills.')
+        print('Next we need to allocate your skill points across the 3 skills. (strength, agility, and cleverness)')
         skills=[]
         while len(skills)==0:
             skills = skill_tree()

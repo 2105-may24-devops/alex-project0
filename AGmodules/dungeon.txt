@@ -1,8 +1,8 @@
 |$
 #This is the Dungeon module!
 &0You wake up in a dingy dimly lit cell, arms shackled above your head.
-&You have no recollection of how exaclty you got here, but your head aches and your mind is foggy.
-&Looking around you notice your only company is a pack of rats skittering in a corner.
+&You have no recollection of how exactly you got here, but your head aches and your mind is foggy.
+&Looking around, you notice your only company is a pack of rats skittering in a corner.
 !Call out for help ^2
 !Wait for someone to rescue you. ^1
 *14Try and pull the rusty chain links apart (s) ^4/^5

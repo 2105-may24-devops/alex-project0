@@ -197,7 +197,7 @@ def play_Game(dm,pc):
                         print("Bad luck! you got a -"+p[p.find('$')+1]+" penalty to your cleverness stat.")
         #redirection
         page = int(next)
-        pc.update_character()
+        pc.update_Character()
     return True
 def select_Module(player):
     p = Path.cwd() / "AGmodules"
@@ -275,6 +275,14 @@ def upload_Module():
         modules.append(pc)
     print('''To upload a module either find one that is already made and add it to the /AGModules folder
 or you can write your own into a .txt file in /AGcharacters that follows these syntax rules: 
-
+|* Signifies a key which should always be the very first line of any module and should be a '|' followed by a character unique from other modules. i.e. |@
+# comment that is ignored by the game
+&Story element that should set the scene and lead to a decision needing to be made
+!basic decision element
+*#strength decision
+@#agility decision
+$#cleverness decision
+    for all the skill decisions the # represents a positive number that player needs to roll equal to or greater than to beat.
+    Also keep in mind that 
 ''')
     input("Input anything to return to the menu. ")
