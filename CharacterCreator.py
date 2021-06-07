@@ -1,5 +1,6 @@
 #character creator class
 from pathlib import Path
+import os
 
 def skill_tree():
     points = 12
@@ -41,9 +42,12 @@ class Avatar:
         self.fileParent = dir_path
 
     #File creator
-    def character_File(self,n,s,a,c,b):
+    def character_File(self,n,s,a,c,b,r):
         file_name = n + '.txt'
-        file_parent = self.fileParent
+        if r:
+            file_parent = Path('AGcharacters')
+        else:
+            file_parent = self.fileParent
         file_path = file_parent / file_name
         Path.touch(file_path,exist_ok=True)
         self.file = file_path
@@ -128,11 +132,11 @@ cleverness: {3}
         
         #Character File Creation
         bkmk=0
-        self.character_File(name, self.strg, self.agil, self.clvr, bkmk)
+        self.character_File(name, self.strg, self.agil, self.clvr, bkmk, False)
 
     #Character select   
     def choose_Character(self):
-        path = Path(self.fileParent)
+        path = Path('AGcharacters')
         characters = []
         character_files=[]
         i=0
@@ -224,3 +228,95 @@ Once that is done you should be able to access your character from the "Choose c
 {4}
 '''.format(self.name,self.strg,self.agil,self.clvr,self.bkmk)
         p.write_text(lines)
+    def resurrect_Character(self):
+        path = Path('AGgraveyard')
+        characters = []
+        character_files=[]
+        i=0
+        for p in path.iterdir():
+            if i==0:
+                print("Character Select: ")
+            i+=1
+            character_files.append(p)
+            pc = str(p)
+            if pc.count('\\')!=0:
+                pc = pc[pc.find('\\')+1:pc.find('.txt')]
+            elif pc.count('/')!=0:
+                pc = pc[pc.find('/')+1:pc.find('.txt')]
+            else:
+                print('Something is wrong with this character path: ')
+                print(pc)
+                return '0'
+            print(str(i)+'. '+pc)
+            characters.append(pc)
+        print(str(i+1)+'. Exit')
+        if characters:
+            adventurer = input('Choose one of the above characters. ')
+            if adventurer=='0' or adventurer==str(len(characters)+1):
+                return '0'
+            chosen_One = characters[int(adventurer)-1]
+            print('Your chosen character is ' + chosen_One)
+            character_correct = input('is that correct? (y/n) ')
+            while character_correct != 'y':
+                for x in range(i):
+                    print(str(x+1)+'. '+characters[x])
+                print(str(i+1)+'. Exit')
+                adventurer = input('Choose one of the above characters. ')
+                if adventurer=='0' or adventurer==str(len(characters)+1):
+                    return '0'
+                chosen_One = characters[int(adventurer)-1]
+                print('Your chosen character is ' + chosen_One)
+                character_correct = input('is that correct? (y/n) ')
+            self.file = character_files[characters.index(chosen_One)]
+            path = self.file
+            with path.open() as f: 
+                character_stats = f.readlines()
+            value = character_stats[0]
+            if value.count('\n') != 0:
+                value = value[:value.find('\\')]
+            character_stats[0] = value
+            name = str(character_stats[0])
+        print('We need to reallocate your skill points across the 3 skills after being resurrected from the graveyard.')
+        skills=[]
+        while len(skills)==0:
+            skills = skill_tree()
+            if skills:
+                    break
+            else:
+                skills=[]
+        print('''Your current skills are:
+strength: {0}
+agility: {1}
+cleverness: {2}'''.format(skills[0],skills[1],skills[2]))
+        skills_correct = input('is that correct? (y/n) ')
+        if skills_correct == '0':
+            return skills_correct
+        while skills_correct != 'y':
+            skills=[]
+            print('Please reallocate your skills.')
+            while len(skills)==0:
+                skills = skill_tree()
+                if skills:
+                    break
+                else:
+                    skills=[]
+            print('''Your current skills are:
+strength: {0}
+agility: {1}
+cleverness: {2}'''.format(skills[0],skills[1],skills[2]))
+            skills_correct = input('is that correct? (y/n) ')
+            if skills_correct == '0':
+                return skills_correct
+        self.strg = skills[0]
+        self.agil = skills[1]
+        self.clvr = skills[2]
+        print('''The character {0} has had the following stats allocated:
+strength: {1}
+agility: {2}
+cleverness: {3}
+        '''.format(name,skills[0],skills[1],skills[2]))
+        
+        #Character File Creation and removal from graveyard
+        bkmk=0
+        self.character_File(name, self.strg, self.agil, self.clvr, bkmk, True)
+        os.remove(Path(path).absolute())

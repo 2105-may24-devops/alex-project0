@@ -1,6 +1,7 @@
 #Game play class
 from pathlib import Path
 import random
+import os
 
 def dungeon_Master(dm):
     if Path(dm).exists():
@@ -35,7 +36,7 @@ def dungeon_Master(dm):
 def play_Game(dm,pc):
     dm, key = dungeon_Master(dm)
     if key == '0':
-        return
+        return True
     bookmark = str(pc.bkmk)
     if bookmark.count(key)!=0:
         page = int(bookmark[bookmark.find(key)+1])
@@ -65,14 +66,29 @@ def play_Game(dm,pc):
             print("THE END")
             bookmark=bookmark[:bookmark.find(key)]+key+'0'+bookmark[bookmark.find(key)+2:]
             pc.bkmk = bookmark
-            break
+            return True
         elif scene.count('~') != 0:
             print(scene[:scene.find('~')])
             print("GAME OVER")
             bookmark=bookmark[:bookmark.find(key)]+key+'0'+bookmark[bookmark.find(key)+2:]
             pc.bkmk = bookmark
-            #delete characters?
-            break
+            dead = pc.file
+            file_path = Path.cwd() / "AGgraveyard"
+            Path.mkdir(file_path, parents=True, exist_ok=True)
+            grave_path = Path(file_path).relative_to(Path.cwd())
+            pc.fileParent = grave_path
+            file_name = pc.name + '.txt'
+            file_parent = pc.fileParent
+            file_path = file_parent / file_name
+            Path.touch(file_path,exist_ok=True)
+            pc.file = file_path
+            pc.strg = 0
+            pc.agil = 0
+            pc.clvr = 0
+            pc.update_Character()
+            os.remove(Path(dead).absolute())
+            print("Your character has been killed, either make a new one or resurrect them from the graveyard.")
+            return False
         else:   
             print(scene)
             page+=1
@@ -181,6 +197,7 @@ def play_Game(dm,pc):
                         print("Bad luck! you got a -"+p[p.find('$')+1]+" penalty to your cleverness stat.")
         #redirection
         page = int(next)
+    return True
 def select_Module(player):
     p = Path.cwd() / "AGmodules"
     Path.mkdir(p, parents=True, exist_ok=True)
@@ -227,7 +244,7 @@ def select_Module(player):
             if mission == '0' or mission==str(len(modules)+1):
                     break
             mod_path = module_files[modules.index(quest)]
-            play_Game(mod_path, player)
+            exit_module = play_Game(mod_path, player)
         else:
             print('Error: No modules found')
             break
