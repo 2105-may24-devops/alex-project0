@@ -51,7 +51,7 @@ elif(len(sys.argv)==5):
         elif sum(stats) > 12:
             print('you only have 12 skill points to allocate.')
         else:
-            avatar.character_File(name,strg,agil,clvr,0)
+            avatar.character_File(name,strg,agil,clvr,0,True)
     else:
         print('improper arguments: requires "name:string" "strength:int" "agility:int" "cleverness:int"')
 else:
