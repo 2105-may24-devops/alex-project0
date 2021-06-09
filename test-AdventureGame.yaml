@@ -1,0 +1,7 @@
+---
+- name: AdventureGame testing script
+  hosts: all
+  tasks:
+        - name: run test-script.sh
+          ansible.builtin.script: 
+                cmd: ./test-script.sh

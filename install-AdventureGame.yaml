@@ -1,0 +1,16 @@
+---
+- name: AdventureGame installation
+  hosts: all
+  tasks:
+        - name: git-clone AdventureGame
+          ansible.builtin.git:
+                repo: "https://github.com/2105-may24-devops/alex-project0.git"
+                dest: ~/project-0-ansible
+                version: master
+                force: yes
+                #- name: pip install requirements into venv and go into the venv
+                #pip:
+                  #chdir: ~/project-0-ansible
+                  #requirements: "~/project-0-ansible/requirements.txt"
+                  #virtualenv: "~/project-0-ansible/venv"
+                  #virtualenv_command: python3 -m venv
