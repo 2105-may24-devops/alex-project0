@@ -1,0 +1,5 @@
+not enough arguments
+too many arguments
+you only have 12 skill points to allocate.
+you need to allocate all 12 points to your skills.
+improper arguments: requires "name:string" "strength:int" "agility:int" "cleverness:int"
