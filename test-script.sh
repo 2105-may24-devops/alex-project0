@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#! /bin/bash
 { python3 p0.py uno 2 5 
 python3 p0.py dos 2 5 3 2 
 python3 p0.py tres 6 4 2 
