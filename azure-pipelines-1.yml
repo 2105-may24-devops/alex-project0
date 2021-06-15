@@ -50,3 +50,11 @@ steps:
     playbookPathOnAgentMachine: './install-packages.yaml'
     inventoriesAgentMachine: 'file'
     inventoryFileOnAgentMachine: './inventory'
+  displayName: 'Install packages'
+- task: Ansible@0
+  inputs:
+    ansibleInterface: 'agentMachine'
+    playbookPathOnAgentMachine: './install-AdventureGame.yaml'
+    inventoriesAgentMachine: 'file'
+    inventoryFileOnAgentMachine: './inventory'
+  displayName: 'Install AdventureGame'
