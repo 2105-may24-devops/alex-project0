@@ -31,3 +31,22 @@ steps:
 - script: |
     bash ./test-script.sh
   displayName: 'Run tests'
+- task: InstallSSHKey@0
+  inputs:
+    knownHostsEntry: |
+      13.65.42.214 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILDgDBa8J9ies31MG1xpL7gSESrLxC5PWpsAWpiTWpVn
+      13.65.42.214 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/ZtHziWx6ZXblZRAG5VBYoE4Lx6pF7ZBvHJ6vq5txfKp5GZXbAmb1pjJyccLsguJRr9QNKgMfOQm3Zh3jmzToN/PQ+hXYLRZvlWXGmNPl7xds8hcp6EG1ZQmNsXseoPXymzc/rWgm2XmlKuseElTlmvOgMHDo8xS27z8/Ba8v50GQnXO1uQJa5kHHIfxOrd4kGHYb/p9CjPmdO+J4NAWOFkB/T1+Ht04n4UHlFXQrRkSvxxRVAKRgFP4vKBxySAR1IDeV/AZ8gE2r7bsPZI/l4RcyODkh9jW0z3N+huk/8lbpEvzQUhZmV/E5psI1Eyu/ax5goG28cK6VYot3/Dpr
+      13.65.42.214 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBLP9SkKMe2QK5e4IzLNCvQtDJ06ofyC7rbGHbU6/pye2c+Db+YxnKoMmQVLYIU6F416jFrXbq9IRbcpZXygywc8=
+      104.215.72.107 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJk+a+SRoJjBsnplbbE6vG/9O6jJ/LsdBjK0K7A7FfOI
+      104.215.72.107 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD0f57lrkvEQNK1ftlYNYadgJ2Clq866W/RIr76ybA8NxHXGJmjL5kTGr2lS/K65V5y5w01Ya/wCiSkSEW1SOgnHo7N8MmrkuOTixJgb1PicJ56wB8e88knXUT/r222V/FCvsPARQZBsMU4d44dWb7giEDiiYv7fwKISY3GGpS6K0Hlwvi/q4JDusISJO5UWZ/lqLfGxeTjyEho6RnczCBauAuG8U1JQ8daGTLWmLv6c3qTSoJQ9K1SQuwQh8FD49BL1yjslrnGihCZXej/fM+rmipMrHy0nHzh6uUWF7RKWHajlCByy964+dMLt/fMaOxMGmn8XhVgkKK2+9/Dx4jR
+      104.215.72.107 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBol0BBG7Ah1dEgciEgRkqJ3tnLSOPHGKJtPlhM1yeiQAl3I4OIhTvY+EzMUS4hz/TppuiG6iHxlaU1D814MWC4=
+      20.97.12.217 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDN4l2Jv2Krgw9EN21HHWfXGAoHZx/zHX5C0Iq9Ov/UU
+      20.97.12.217 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC+OrY0VO+gD8eFk3wmVBY9McSOniH83A0mEM6kHeYQMpKNKbuar/DVBjkgz1sgfmrWLHZOPhDno96Av+1M6cPmKTEMsjWSaepPDCHxlO82RTR72h1zMy8UwimI5+AFCbehprRymLT3WJoTo2lgnQO0ZA6sCrwYhgnJVY1Yereb1lBmaS5vBJ4OVVb1l1VAdGnYVhYT44dfsEnlcFpjF4JAtH3RNUrGAJ89g9KXSSlv/6UshB+VAJ2M5kmvH/JReOuMIxnBGa/JYNCqYuUj4dj+EYYFszlpfwcHoSlUD7Laqc0yNQHSge0zVbdy/aeFxY0M/8jlF/1AU8bywBOGuWlx
+      20.97.12.217 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBFAZU4nQNS6lNWqiFzoQ4pjTSmsGyxWmyoZS7pzSWooaua/yV9JDou49KuhCzZakpP/PY0WfTxbo/KrZM+ESW+Q=
+    sshKeySecureFile: '2105-may24-devops-ubuntu-vm-1_key.pem'
+- task: Ansible@0
+  inputs:
+    ansibleInterface: 'agentMachine'
+    playbookPathOnAgentMachine: './install-packages.yaml'
+    inventoriesAgentMachine: 'file'
+    inventoryFileOnAgentMachine: './inventory'
