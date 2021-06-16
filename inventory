@@ -2,7 +2,7 @@
 rvm2 ansible_host=104.215.72.107 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
 rvm3 ansible_host=20.97.12.217 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
 rvm4 ansible_host=13.84.166.27 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
-rvm5 ansible_host=13.8.66.112 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
+rvm5 ansible_host=13.66.8.112 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
 
 [py3_hosts:vars]
 ansible_python_interpreter=/usr/bin/python3
