@@ -1,4 +1,8 @@
-20.97.12.217 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
-104.215.72.107 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
-13.84.166.27 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
-ansible_python_interpreter=~/AppData/Local/Microsoft/WindowsApps/python3.exe
+[py3_hosts]
+rvm2 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
+rvm3 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
+rvm4 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
+rvm5 ansible_ssh_private_key_file=~/.ssh/2105-may24-devops-ubuntu-vm-1_key.pem ansible_user=alexander
+
+[py3_hosts:vars]
+ansible_python_interpreter=/usr/bin/python3
