@@ -31,6 +31,16 @@ steps:
 - script: |
     bash ./test-script.sh
   displayName: 'Run tests'
+
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud-alexanderJervis'
+    organization: '2105-may24-devops'
+    scannerMode: 'CLI'
+    configMode: 'file'
+
+- task: SonarCloudAnalyze@1
+
 - task: InstallSSHKey@0
   inputs:
     knownHostsEntry: |
