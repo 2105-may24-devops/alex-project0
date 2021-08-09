@@ -1,11 +1,12 @@
 node {
     stage('P0-Test') {
-        if (env.BRANCH_NAME == 'master') {
-            echo 'Success on master branch'
-        } 
-        else {
-            echo "Branch: ${env.BRANCH_NAME}"
-        }
+        echo "This is a Test."
+    }
+    stage('Ansible-Playbook') {
+        ansiblePlaybook colorized: true, 
+        installation: 'ansible0', 
+        inventory: '/inventory', 
+        playbook: '/install-packages.yaml'
     }
     stage('Discord-Message') {
         discordSend description: "```Build Number: ${env.BUILD_ID} \nBuild Node: ${env.NODE_NAME} \nBuild Location: ${env.WORKSPACE} \nBuild Duration: ${currentBuild.durationString}```", 
