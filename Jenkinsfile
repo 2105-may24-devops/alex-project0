@@ -4,11 +4,11 @@ node {
             echo 'Success on master branch'
         } 
         else {
-            echo "Branch: $env.BRANCH_NAME"
+            echo "Branch: ${env.BRANCH_NAME}"
         }
     }
     stage('Discord-Message') {
-        discordSend description: "```Build Number: ${env.BUILD_ID} \n Build Branch: ${env.BRANCH_NAME} \n Build Location: ${env.WORKSPACE} \n Build Duration: ${currentBuild.durationString}```", 
+        discordSend description: "```Build Number: ${env.BUILD_ID} \nBuild Branch: ${env.BRANCH_NAME} \nBuild Location: ${env.WORKSPACE} \nBuild Duration: ${currentBuild.durationString}```", 
         footer: 'Jenkins v2.289.1, Discord Notifier v1.4.14', 
         image: '', 
         link: env.BUILD_URL, 
