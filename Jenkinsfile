@@ -8,7 +8,7 @@ node {
         }
     }
     stage('Discord-Message') {
-        discordSend description: "```Build Number: ${env.BUILD_ID} \nBuild Branch: ${env.BRANCH_NAME} \nBuild Location: ${env.WORKSPACE} \nBuild Duration: ${currentBuild.durationString}```", 
+        discordSend description: "```Build Number: ${env.BUILD_ID} \nBuild Branch: ${BRANCH_NAME} \nBuild Location: ${env.WORKSPACE} \nBuild Duration: ${currentBuild.durationString}```", 
         footer: 'Jenkins v2.289.1, Discord Notifier v1.4.14', 
         image: '', 
         link: env.BUILD_URL, 
