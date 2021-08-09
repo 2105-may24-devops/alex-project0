@@ -8,7 +8,7 @@ node {
         }
     }
     stage('Discord-Message') {
-        discordSend description: |
+        discordSend description:
         "```Build Number: env.BUILD_ID 
         Build Branch: env.BRANCH_NAME 
         Build Location: env.WORKSPACE 
