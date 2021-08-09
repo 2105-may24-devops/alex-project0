@@ -1,12 +1,13 @@
 node {
     stage('P0-Test') {
-        echo "This is a Test."
+        echo "Workspace: $WORKSPACE"
+        sh "ls"
     }
     stage('Ansible-Playbook') {
         ansiblePlaybook colorized: true, 
         installation: 'ansible0', 
-        inventory: '**/inventory', 
-        playbook: '**/install-packages.yaml'
+        inventory: '*/inventory', 
+        playbook: '*/install-packages.yaml'
     }
     stage('Discord-Message') {
         discordSend description: "```Build Number: ${env.BUILD_ID} \nBuild Node: ${env.NODE_NAME} \nBuild Location: ${env.WORKSPACE} \nBuild Duration: ${currentBuild.durationString}```", 
