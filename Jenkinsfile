@@ -1,7 +1,8 @@
 node {
     stage('P0-Test') {
         echo "Workspace: $WORKSPACE"
-        sh "ls"
+        sh "cd ~"
+        sh "ls ."
     }
     stage('Ansible-Playbook') {
         ansiblePlaybook colorized: true, 
